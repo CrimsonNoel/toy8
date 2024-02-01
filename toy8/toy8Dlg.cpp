@@ -275,7 +275,7 @@ void Ctoy8Dlg::InsertStudentList(vector<CStudent*>& studentList, int size)
 		m_studentList.SetItemText(i, 3, str);
 		str.Format("%d", studentList[i]->getMath());
 		m_studentList.SetItemText(i, 4, str);*/
-		if (studentList[i]->getIsMale() == false)
+		if (studentList[i]->getIsFemale() == false)
 		{
 			str.Format("%d", studentList[i]->getNumber());
 			m_studentList.InsertItem(i, str);
@@ -301,10 +301,10 @@ void Ctoy8Dlg::InsertStudentList(vector<CStudent*>& studentList, int size)
 			m_studentFemale.InsertItem(female, str);
 			m_studentFemale.SetItemText(female, 1, studentList[i]->getName());
 			m_studentFemale.SetItemText(female, 2, "¿©");
-			str.Format("%d", ((studentList[i]->getKorean())+1)>100 ? 100 : ((studentList[i]->getKorean())+1));
+			str.Format("%d", (studentList[i]->getKorean())>100 ? 100 : (studentList[i]->getKorean()));
 			m_studentList.SetItemText(i, 3, str);
 			m_studentFemale.SetItemText(female, 3, str);
-			str.Format("%d", ((studentList[i]->getMath())+1)>100 ? 100 : ((studentList[i]->getMath())+1));
+			str.Format("%d", (studentList[i]->getMath())>100 ? 100 : (studentList[i]->getMath()));
 			m_studentList.SetItemText(i, 4, str);
 			m_studentFemale.SetItemText(female, 4, str);
 			female++;
@@ -333,15 +333,8 @@ void Ctoy8Dlg::Average(vector<CStudent*>& student, int categorySize)
 	double sum = 0;
 	for (int i = 0; i < student.size(); i++)
 	{
-		sum += student[i]->getKorean()+student[i]->getIsMale();
-		sum += student[i]->getMath()+student[i]->getIsMale();
-		//sum += student[i]->getKorean();
-		//sum += student[i]->getMath();
-
-		//86.42 (+1Á¡) if (student[i]->getIsMale() == false)
-		//86.00 (origin)
-
-
+		sum += student[i]->getKorean();
+		sum += student[i]->getMath();
 	}
 	CString average;
 	sum = sum / (student.size() * 2);
@@ -355,7 +348,7 @@ void Ctoy8Dlg::AverageMale(vector<CStudent*>& student, int categorySize)
 	double sum = 0;
 	for (int i = 0; i < student.size(); i++)
 	{
-		if (student[i]->getIsMale() == false)
+		if (student[i]->getIsFemale() == false)
 		{
 			sum += student[i]->getKorean();
 			sum += student[i]->getMath();
@@ -374,10 +367,10 @@ void Ctoy8Dlg::AverageFemale(vector<CStudent*>& student, int categorySize)
 	double sum = 0;
 	for (int i = 0; i < student.size(); i++)
 	{
-		if (student[i]->getIsMale() == true)
+		if (student[i]->getIsFemale() == true)
 		{
-			sum += (student[i]->getKorean()) + 1;
-			sum += (student[i]->getMath()) + 1;
+			sum += student[i]->getKorean();
+			sum += student[i]->getMath();
 			cnt++;
 		}
 	}
